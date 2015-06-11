@@ -19,9 +19,7 @@ module Tod
           ENV['GITHUB_SECRET']
       else
         #development, test
-        provider :github,
-          'e30e91ed48d24ed4f1a6',
-          'f6416573448abd04dca24aaa19434b4c1b6a561b'
+        provider :github, 'e30e91ed48d24ed4f1a6', 'f6416573448abd04dca24aaa19434b4c1b6a561b'
       end
     end
 
