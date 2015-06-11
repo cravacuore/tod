@@ -4,6 +4,8 @@ es:
     home_link:          Inicio
     new_proposal:       Nueva Propuesta
     proposal_list:      Lista de propuestas
+    report:             Reportes
+    roles:              Roles
     search_placeholder: Búsqueda
     search_button:      Buscar
   footer:
@@ -15,6 +17,12 @@ es:
     log_in:  Iniciar sesión con GitHub
     log_out: Cerrar sesión
     logged:  Conectado como
+  admin:
+    roles:
+      title:      Asignacion de Roles
+      user_name:  Usuario
+      is_revisor: Es Revisor
+      empty:      No hay usuarios registrados
   proposal:
     new:
       title: Nueva Propuesta
@@ -57,3 +65,13 @@ es:
     search:
       title: Resultados de búsqueda
       empty: No se han encontrado resultados
+  report:
+     title:                Reportes
+     text:                 Busqueda de propuestas por tag
+     tag_placeholder:      "Ej: Tag"
+     button:               Buscar
+     button_quantity:      Cantidad
+     quantity:             "La cantidad de propuestas totales son "
+     quantity_search:      "La cantidad de propuestas buscadas por tag "
+     fail:                 Acceso Restringido
+     tag:                  Tag

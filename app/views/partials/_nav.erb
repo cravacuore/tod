@@ -16,11 +16,24 @@
 
       <% @user = session[:user] %>
       <% if @user %>
-        <ul class="nav navbar-nav">
-          <li><p class="navbar-text navbar-right"><%= t('user.logged') + ': ' + @user.name %></p></li>
-        </ul>
+
+        <% if @user.role.is_admin? %>
+          <ul class="nav navbar-nav">
+            <li><%= link_to t('nav.roles'), url_for(:admin, :roles) %></li>
+          </ul>
+        <% end %>
+
+        <% if @user.role.is_revisor? %>
+          <ul class="nav navbar-nav">
+            <li><%= link_to t('nav.report'), url_for(:report, :page) %></li>
+          </ul>
+        <% end %>
+
         <ul class="nav navbar-nav navbar-right">
           <li><%= link_to t('user.log_out'), url_for(:auth, :log_out) %></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><p class="navbar-text"><%= t('user.logged') + ': ' + @user.name %></p></li>
         </ul>
       <% else %>
         <ul class="nav navbar-nav navbar-right">
@@ -32,7 +45,7 @@
         <form method="POST" action="/proposal/search" class="form-search">
           <%= csrf_token_field %>
           <input id="query" type="text" name="query" class="form-control" placeholder="<%=t('nav.search_placeholder')%>" />
-          <input type="submit" value=<%=t('nav.search_button')%> class="btn btn-primary"/>
+          <input type="submit" value=<%=t('nav.search_button')%> class=btn btn-primary/>
         </form>
       </div>
     </div>

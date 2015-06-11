@@ -39,5 +39,4 @@ Scenario: Proposal have duplicated title
   And a description "This is a proposal"
   And author nick "Author"
   And submitting
-
   Then the second proposal should have title "Proposal - Author"
