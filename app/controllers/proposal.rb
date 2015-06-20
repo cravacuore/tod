@@ -20,19 +20,33 @@ Tod::App.controllers :proposal do
     title       = params[:proposal][:title]
     description = params[:proposal][:description]
     author      = params[:proposal][:author]
+    audience    = params[:proposal][:audience]
+    type        = params[:proposal][:type]
+    mail        = params[:proposal][:mail]
+
 
     @proposal             = Proposal.new
     @proposal.title       = title
     @proposal.description = description
-    @proposal.author      = author
+    @proposal.author      =  author
     @proposal.date        = Time.now
+    @proposal.email       = mail
     @proposal.tag_list    = params[:proposal][:tags_list].downcase
+    @proposal.type        =  ProposalSessionType.new(type)
+    @proposal.audience    =  Audience.new(audience)
+
+
 
     if Proposal.first(:title => title)
       @proposal.append_author_to_title
     end
 
+
     if @proposal.save
+      user =User.new
+      user.name= author
+      user.email= mail
+      user.save!
       flash[:success] = t('proposal.new.result.success')
       redirect 'proposal/list'
     else
@@ -48,6 +62,10 @@ Tod::App.controllers :proposal do
         'proposal.new.form.title_tag', 3
       ) unless field_length_enough?(title)
 
+      unless check_mail?(mail)
+        notify_new_proposal_mail_misspelled
+      end
+
       render 'proposal/new'
     end
   end
@@ -57,7 +75,23 @@ Tod::App.controllers :proposal do
     @proposal_detail = Proposal.get proposal_id
     @comments        = Comment.all(:proposal_id => proposal_id).reverse
     @comment         = Comment.new
+    @evaluation      = Evaluation.new
+    @has_enough_evaluations = Evaluation.count(:proposal_id => proposal_id).to_i >= Conference.first_or_create.reviews_per_proposal.to_i
     render 'proposal/detail'
+  end
+
+  get :revision_email, :params => [ :proposal_id ] do
+    proposal = Proposal.get params[:proposal_id]
+    begin
+      TodMailer.send_mail(
+          proposal.email,
+          "Results for: #{proposal.title}",
+          Evaluation.all(:proposal_id => params[:proposal_id]).map { |e| e.to_paragraph + '\n'}
+      )
+    rescue
+      status 500
+      body '{"success":false}'
+    end
   end
 
   post :comment do
@@ -85,5 +119,38 @@ Tod::App.controllers :proposal do
     end
 
     redirect_to 'proposal/detail?proposal_id=' + proposal_id.to_s
+  end
+
+  post :evaluate do
+    opinion     = params[:evaluation][:opinion]
+    body        = params[:evaluation][:evaluation_body]
+    proposal_id = params[:evaluation][:proposal_id]
+
+    @evaluation = Evaluation.new
+    @evaluation.evaluator   = session[:user].name
+    @evaluation.opinion     = EvaluationOpinion.new(opinion.to_sym)
+    @evaluation.comment     = body
+    @evaluation.proposal_id = proposal_id
+
+    if @evaluation.save
+      flash[:success] = t('proposal.evaluation.form.results.success', opinion: opinion)
+    else
+      flash[:danger] =
+        t('proposal.evaluation.form.results.words_enough',
+          field: t('proposal.evaluation.form.comment_tag'),
+          cant: 3
+         ) unless words_enough?(body, 3)
+    end
+
+    redirect_to 'proposal/detail?proposal_id=' + proposal_id.to_s
+  end
+
+  get :evaluations do
+    proposal_id      = params[:proposal_id]
+    logger.debug "PROPOSAL EVALUATIONS FOR #{ params[:proposal_id]}"
+    @proposal_detail = Proposal.get proposal_id
+    @evaluations     = Evaluation.all(:proposal_id => proposal_id).reverse
+
+    render 'proposal/evaluations'
   end
 end

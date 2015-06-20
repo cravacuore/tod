@@ -1,9 +1,12 @@
 en:
   title: TOD - Conference organizer
   nav:
-    home_link:          Home
+    home_link:          Tod
     new_proposal:       New Proposal
     proposal_list:      Proposal list
+    report:             Reports
+    roles:              Roles
+    admin:              Admin
     search_placeholder: Looking for something?
     search_button:      Search
   footer:
@@ -15,20 +18,41 @@ en:
     log_in:  Log in with GitHub
     log_out: Log out
     logged:  Logged in as
+  admin:
+    roles:
+      title:      Role Assignment
+      user_name:  User
+      is_revisor: Is Revisor
+      empty:      No registered users
+    conference:
+      title:                  Conference Settings
+      revisions_per_proposal: Revisions per proposal
+      save:                   Save Changes
+      success:                Conference Successfully Updated
+      fail:                   Restricted access
   proposal:
     new:
       title: New Proposal
       form:
         title_tag:               Title
+        mail_tag:                Email
         description_tag:         Description
         author_tag:              Author
         tags_tag:                Tags
         title_placeholder:       "E.g.: Super Proposal 2016"
         description_placeholder: "E.g.: This is a nice proposal description"
         author_placeholder:      "E.g.: Superman"
-        tags_placeholder:        "Ej: Agile, Scrum, Software Arquitecture"
+        tags_placeholder:        "E.g: Agile, Scrum, Software Arquitecture"
+        mail_placeholder:        "E.g: Example@domain.com"
         send_button:             Send
         cancel_button:           Cancel
+        type:                    Type
+        audience:                Audience
+        select_1:                "Workshop"
+        select_2:                "Presentation"
+        audience_1:              "Initial"
+        audience_2:              "Practicing"
+        audience_3:              "Advanced"
       result:
         success:         Proposal submitted successfully
         error:           Proposal could not be sent
@@ -36,9 +60,11 @@ en:
     list:
       title: List of Proposals
       table:
-        title:  Title
-        author: Author
-        tags:   Tags
+        title:      Title
+        author:     Author
+        tags:       Tags
+        type:       Type
+        audience:   Audience
       empty: "Still no proposals, you can add one if you want."
     detail:
       tags:              "Tags: %{tags}"
@@ -57,3 +83,17 @@ en:
     search:
       title: Search results
       empty: Results have not been found
+    error:
+      mail_error:    "mail misspelled"
+    email:
+      notify_result: Notify result
+  report:
+     title:                Reports
+     text:                 Search proposed by tag
+     tag_placeholder:      "Ej: Tag"
+     button:               Search
+     button_quantity:      Quantity
+     quantity:             "The amount of total proposals are "
+     quantity_search:      The number of proposals found by tag "%{tags}" were
+     fail:                 Restricted access
+     tag:                  Tag

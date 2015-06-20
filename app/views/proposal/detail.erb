@@ -1,83 +1,147 @@
 <div class="container">
-  <div class = "media">
-      <div class="media-body">
+  <div class="media">
+    <div class="media-body">
+      <div>
         <h2 class="media-heading">
-          <%=@proposal_detail.title%>
-        </h2><hr>
-        <p><%=@proposal_detail.description%></p>
-        <small>
-          <%=t('proposal.detail.send_by', author: @proposal_detail.author)%>
-        </small>
-        <small>
-          <%=t('proposal.detail.tags', tags: @proposal_detail.tag_list * " ")%>
-        </small>
-      </div>
-    </div>
-
-  <hr>
-
-  <div class="well">
-  <h4><%=t('proposal.detail.comment_box_title')%></h4>
-  <% form_for(@comment, '/proposal/comment', html: { class: 'form' }) do |f| %>
-    <fieldset>
-      <div class="form-group">
-        <% if session[:user] %>
-          <div class="controls">
-            <%= f.label t('proposal.detail.form.name_tag'),
-              class: 'control-label'
-            %>
-            <div class="controls">
-              <%= f.text_field :author, class: 'form-control',
-                value: session[:user].name,
-                readonly: 'readonly'
-              %>
-            </div>
-          </div>
-        <% else %>
-          <%= f.label t('proposal.detail.form.name_tag'),
-            class: 'control-label'
-          %>
-          <div class="controls">
-            <%= f.text_field :author, class: 'form-control',
-              placeholder: t('proposal.detail.form.name_placeholder')
-            %>
-          </div>
+          <%= @proposal_detail.title %>
+        </h2>
+        <% if @has_enough_evaluations %>
+            <button id="proposal-send-email-<%= @proposal_detail.id %>" type="button" class="btn btn-danger" onclick="onSendRevisionsMail(<%=@proposal_detail.id%>)">
+              <%= t('proposal.email.notify_result') %>
+            </button>
         <% end %>
       </div>
 
-      <div class="form-group">
-        <%= f.label t('proposal.detail.form.comment_tag'),
-          class: 'control-label'
-        %>
-        <div class="controls">
-          <%= f.text_area :body, class: 'form-control',
-            placeholder: t('proposal.detail.form.comment_placeholder'),
-            rows: '3'
-          %>
-        </div>
-      </div>
 
-      <%= f.hidden_field :proposal_id, value: @proposal_detail.id %>
-
-      <div class="form-actions">
-        <%= f.submit t('proposal.detail.form.send_button'),
-          class: 'btn btn-primary'
-        %>
-      </div>
-  <% end %>
-  </div>
-
-  <hr>
-  <% for @comment in @comments %>
-    <div class = "media">
-      <div class="media-body">
-        <h4 class="media-heading">
-          <%=@comment.author%>
-          <small><%=@comment.date.strftime('%c')%></small>
-        </h4>
-        <%=@comment.body%>
-      </div>
+      <hr>
+      <p><%= @proposal_detail.description %></p>
+      <small>
+        <%= t('proposal.detail.send_by', author: @proposal_detail.author) %>
+      </small>
+      <small>
+        <%= t('proposal.detail.tags', tags: @proposal_detail.tag_list * " ") %>
+      </small>
     </div>
-  <% end %>
 
+    <% @user = session[:user] %>
+    <% if @user %>
+        <% if @user.role.is_revisor? %>
+            <hr>
+            <% if !@proposal_detail.evaluated_by? @user.name %>
+                <div class="media-evaluation">
+                  <br>
+
+                  <div class="well">
+                    <h4><%= t('proposal.evaluation.form.opinion_box_tag') %></h4>
+                    <% form_for(@evaluation, '/proposal/evaluate', html: {class: 'form'}) do |f| %>
+                        <fieldset>
+                          <div class="form-group">
+                            <%= f.select(:opinion, :options => [
+                                                         t('proposal.evaluation.form.opinions.weakly_a'),
+                                                         t('proposal.evaluation.form.opinions.strongly_a'),
+                                                         t('proposal.evaluation.form.opinions.weakly_r'),
+                                                         t('proposal.evaluation.form.opinions.strongly_r')
+                                                 ], :class => 'form-control') %>
+                          </div>
+
+                          <div class="form-group">
+                            <%= f.label t('proposal.evaluation.form.comment_tag'),
+                                        class: 'control-label'
+                            %>
+                            <div class="controls">
+                              <%= f.text_area :evaluation_body, class: 'form-control',
+                                              placeholder: t('proposal.evaluation.form.comment_placeholder'),
+                                              rows: '3'
+                              %>
+                            </div>
+                          </div>
+
+                          <%= f.hidden_field :evaluator, value: session[:user].name %>
+                          <%= f.hidden_field :proposal_id, value: @proposal_detail.id %>
+
+                          <div class="form-actions">
+                            <%= f.submit t('proposal.evaluation.form.send_button'),
+                                         class: 'btn btn-primary'
+                            %>
+                          </div>
+                        </fieldset>
+                    <% end %>
+                  </div>
+            <% else %>
+                <a class="btn btn-large btn-primary" href="<%= url(:proposal, :evaluations) %>?proposal_id=<%= @proposal_detail.id %>">
+                  <%= t('proposal.evaluation.eval_button') %>
+                </a>
+            <% end # proposal.evaluated_by?   %>
+        <% end # user.is_revisor?   %>
+    <% end # @user  %>
+    </div>
+
+    <hr>
+
+    <div class="well">
+      <h4><%= t('proposal.detail.comment_box_title') %></h4>
+      <% form_for(@comment, '/proposal/comment', html: {class: 'form'}) do |f| %>
+          <fieldset>
+            <div class="form-group">
+              <% if session[:user] %>
+                  <div class="controls">
+                    <%= f.label t('proposal.detail.form.name_tag'),
+                                class: 'control-label'
+                    %>
+                    <div class="controls">
+                      <%= f.text_field :author, class: 'form-control',
+                                       value: session[:user].name,
+                                       readonly: 'readonly'
+                      %>
+                    </div>
+                  </div>
+              <% else %>
+                  <%= f.label t('proposal.detail.form.name_tag'),
+                              class: 'control-label'
+                  %>
+                  <div class="controls">
+                    <%= f.text_field :author, class: 'form-control',
+                                     placeholder: t('proposal.detail.form.name_placeholder')
+                    %>
+                  </div>
+              <% end %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label t('proposal.detail.form.comment_tag'),
+                          class: 'control-label'
+              %>
+              <div class="controls">
+                <%= f.text_area :body, class: 'form-control',
+                                placeholder: t('proposal.detail.form.comment_placeholder'),
+                                rows: '3'
+                %>
+              </div>
+            </div>
+
+            <%= f.hidden_field :proposal_id, value: @proposal_detail.id %>
+
+            <div class="form-actions">
+              <%= f.submit t('proposal.detail.form.send_button'),
+                           class: 'btn btn-primary'
+              %>
+            </div>
+          </fieldset>
+      <% end %>
+    </div>
+
+    <hr>
+    <% for comment in @comments %>
+        <div class="media">
+          <div class="media-body">
+            <h4 class="media-heading">
+              <%= comment.author %>
+              <small><%= comment.date.strftime('%c') %></small>
+            </h4>
+            <%= comment.body %>
+          </div>
+        </div>
+    <% end %>
+
+  </div>
 </div>

@@ -15,7 +15,8 @@ Given(/^someone add proposal "(.*?)"$/) do |proposal|
    Proposal.create(
     :title       => proposal,
     :description => "proposal description test",
-    :author      => "a test author"
+    :author      => "a test author",
+    :email       => "test@domain.com"
   ).save
 end
 

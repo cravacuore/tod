@@ -2,7 +2,8 @@ Given(/^a proposal$/) do
   @proposal = Proposal.create(
     :title       => "proposal for comment",
     :description => "proposal for comment description test",
-    :author      => "a test author who likes comments"
+    :author      => "a test author who likes comments",
+    :email      => "un@dominio.com"
   )
   @proposal.save
 end

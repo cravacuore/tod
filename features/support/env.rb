@@ -10,8 +10,12 @@ require 'dm-tags'
 # Data base in memory
 DataMapper.auto_migrate!
 
-#Capybara.default_driver = :selenium
+# Capybara.default_driver    = :webkit
+# Capybara.current_driver    = :webkit
+Capybara.javascript_driver = :webkit
+
 Capybara.app = Tod::App.tap { |app|  }
+Capybara.default_wait_time = 5
 
 require_relative '../../app/models/proposal'
 
@@ -19,5 +23,7 @@ require_relative '../../app/models/proposal'
 After do
   Proposal.destroy!
   Comment.destroy!
+  User.destroy!
+  Evaluation.destroy!
 end
 
