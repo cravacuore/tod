@@ -34,3 +34,5 @@ end
 
 # Mounts the core application for this project
 Padrino.mount('Tod::App', :app_file => Padrino.root('app/app.rb')).to('/')
+
+Padrino.require_dependencies "#{Padrino.root}/config/admin.rb", "#{Padrino.root}/config/mailing.rb"

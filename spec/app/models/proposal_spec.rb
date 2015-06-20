@@ -27,6 +27,10 @@ describe Proposal do
       expect(proposal.date).to eql rigth_now
     end
 
+    it 'should have default session set to presentation' do
+      expect(Proposal.new.type.is_presentation?).to eq true
+    end
+
     # TODO - to validate
     # it 'should raise an error when title is "as"' do
     #   proposal = Proposal.new

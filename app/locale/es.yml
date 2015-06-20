@@ -1,9 +1,12 @@
 es:
   title: TOD - Organizador de conferencias
   nav:
-    home_link:          Inicio
+    home_link:          Tod
     new_proposal:       Nueva Propuesta
-    proposal_list:      Lista de propuestas
+    proposal_list:      Propuestas
+    report:             Reportes
+    roles:              Roles
+    admin:              Admin
     search_placeholder: Búsqueda
     search_button:      Buscar
   footer:
@@ -15,6 +18,18 @@ es:
     log_in:  Iniciar sesión con GitHub
     log_out: Cerrar sesión
     logged:  Conectado como
+  admin:
+    roles:
+      title:      Asignación de Roles
+      user_name:  Usuario
+      is_revisor: Es Revisor
+      empty:      No hay usuarios registrados
+    conference:
+      title:                  Configuración de Conferencia
+      revisions_per_proposal: Revisiones por propuesta
+      save:                   Guardar Cambios
+      success:                Cambios guardados exitosamente
+      fail:                   Acceso Restringido
   proposal:
     new:
       title: Nueva Propuesta
@@ -22,13 +37,18 @@ es:
         title_tag:               Título
         description_tag:         Descripción
         author_tag:              Autor
+        mail_tag:                Email
         tags_tag:                Etiquetas
         title_placeholder:       "Ej: Super Tema 2016"
         description_placeholder: "Ej: Esta es una linda descripción de propuesta"
         author_placeholder:      "Ej: Don Pepito"
         tags_placeholder:        "Ej: Agile, Scrum, Arquitectura de Software"
+        mail_placeholder:        "Ej: Ejemplo@dominio.com"
         send_button:             Enviar
         cancel_button:           Cancelar
+        type:                    Tipo
+        select_1:                "Taller"
+        select_2:                "Presentación"
       result:
         success:         Propuesta enviada correctamente
         error:           No se ha podido enviar la propuesta
@@ -39,6 +59,7 @@ es:
         title:  Título
         author: Autor
         tags:   Etiquetas
+        type:   Tipo
       empty: "Aun no hay propuestas, puedes agregar una si deseas"
     detail:
       tags:              "Etiquetas: %{tags}"
@@ -54,6 +75,37 @@ es:
         comment_tag:         Comentario
         comment_placeholder: "Ej: Este es un hermoso comentario, positivo y constructivo"
         send_button:         Enviar
+    evaluation:
+      has_not:     Esta propuesta no tiene evaluaciones
+      eval_button: Ver Evaluaciones
+      form:
+        opinion_box_tag:     "A continuación, seleccione un dictamen y deje un comentario sobre el dictamen:"
+        opinions:
+          weakly_a:   Aceptación Débil
+          strongly_a: Aceptación Fuerte
+          weakly_r:   Rechazo Débil
+          strongly_r: Rechazo Fuerte
+        comment_tag:         Comentario
+        comment_placeholder: "Ej: La propuesta es interesante"
+        send_button:         Evaluar
+        results:
+          success:      "Propuesta evaluada correctamente: %{opinion}"
+          error:        No se ha podido evaluar la propuesta
+          words_enough: "El campo %{field} tiene menos de %{cant} palabras"
     search:
       title: Resultados de búsqueda
       empty: No se han encontrado resultados
+    error:
+      mail_error:    "Email ingresado incorrectamente"
+    email:
+      notify_result: Notificar resultado
+  report:
+     title:                Reportes
+     text:                 Búsqueda  de propuestas por tag
+     tag_placeholder:      "Ej: Tag"
+     button:               Buscar
+     button_quantity:      Cantidad
+     quantity:             "La cantidad de propuestas totales son "
+     quantity_search:      La cantidad de propuestas encontradas por tag "%{tags}" fueron
+     fail:                 Acceso Restringido
+     tag:                  Tag

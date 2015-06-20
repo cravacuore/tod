@@ -3,6 +3,7 @@ Given(/^added proposal with title "(.*?)" and "(.*?)" tags$/) do |title, tags|
   @proposal.title = title
   @proposal.description = "A proposal description"
   @proposal.author = "An author"
+  @proposal.email="test@dominio.com"
   @proposal.date = Time.now
   @proposal.tag_list = tags.downcase
   @proposal.save

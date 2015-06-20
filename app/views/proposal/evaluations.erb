@@ -1,0 +1,17 @@
+<div class="container">
+	<div class = "media">
+	<h2 class="media-heading">
+	<%=@proposal_detail.title%>
+	</h2><hr>
+	<% for @evaluation in @evaluations %>
+		<div class = "media">
+			<div class="media-body">
+				<h4 class="media-heading">
+					<%=@evaluation.opinion%>
+					</h4>
+					<%=@evaluation.comment%>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>

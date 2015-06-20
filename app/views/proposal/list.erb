@@ -9,6 +9,7 @@
       <tr>
         <th><%= t('proposal.list.table.title')%></th>
         <th><%= t('proposal.list.table.author')%></th>
+        <th><%= t('proposal.list.table.type')%></th>
         <th><%= t('proposal.list.table.tags')%></th>
       </tr>
 
@@ -16,7 +17,9 @@
         <tr>
           <td><%= link_to proposal.title, url_for(:proposal, :detail, :proposal_id => proposal.id) %></td>
           <td><%= proposal.author %></td>
+          <td><%= proposal.type %></td>
           <td><%= proposal.tag_list * " "%></td>
+
         </tr>
       <% end %>
 
