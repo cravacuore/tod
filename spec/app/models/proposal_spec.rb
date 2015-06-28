@@ -9,6 +9,7 @@ describe Proposal do
     it { should respond_to( :date) }
     it { should respond_to( :comments) }
     it { should respond_to( :tags) }
+    it { should respond_to( :evaluations) }
   end
 
   describe 'initialize' do
@@ -25,6 +26,10 @@ describe Proposal do
       expect(proposal.description).to eq 'A description'
       expect(proposal.author).to eq 'Hache'
       expect(proposal.date).to eql rigth_now
+    end
+
+    it 'should have default session set to presentation' do
+      expect(Proposal.new.type.is_presentation?).to eq true
     end
 
     # TODO - to validate
@@ -94,5 +99,6 @@ describe Proposal do
       expect(proposal.title).to eq 'A title - An author'
     end
   end
+
 end
 

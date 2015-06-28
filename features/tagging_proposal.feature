@@ -5,6 +5,7 @@ Background:
   And proposal title "Proposal"
   And a description "This is a proposal"
   And author nick "Author"
+  And email "author@tod.com"
 
 Scenario: Submitt a proposal without tagging
   Given no tags added
