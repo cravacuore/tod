@@ -3,11 +3,23 @@
 module Tod
   class App
     module AuthHelper
-      # def simple_helper_method
-      # ...
-      # end
-    end
 
+      def with_admin_role(&block)
+
+        if session[:user] && session[:user].role.is_admin?
+          block.call
+        else
+          status 401 #Unauthorized
+          body  t('admin.conference.fail')
+        end
+
+      end
+
+      def set_as_admin_if_eligible
+        AdminManager.set_as_admin_if_eligible session[:user]
+      end
+
+    end
     helpers AuthHelper
   end
 end

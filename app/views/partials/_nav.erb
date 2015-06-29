@@ -1,9 +1,6 @@
 <div class="container page-header">
   <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand">Tod</a>
-      </div>
       <ul class="nav navbar-nav">
         <li><%= link_to t('nav.home_link'), url_for(:home, :index) %></li>
       </ul>
@@ -16,23 +13,47 @@
 
       <% @user = session[:user] %>
       <% if @user %>
-        <ul class="nav navbar-nav">
-          <li><p class="navbar-text navbar-right"><%= t('user.logged') + ': ' + @user.name %></p></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to t('user.log_out'), url_for(:auth, :log_out) %></li>
-        </ul>
+
+          <% if @user.role.is_admin? %>
+              <ul class="nav navbar-nav">
+                <li><%= link_to t('nav.roles'), url_for(:admin, :roles) %></li>
+              </ul>
+          <% end %>
+
+          <% if @user.role.is_admin? %>
+              <ul class="nav navbar-nav">
+                <li><%= link_to t('nav.admin'), url_for(:admin, :conference) %></li>
+              </ul>
+          <% end %>
+
+          <% if @user.role.is_revisor? %>
+              <ul class="nav navbar-nav">
+                <li><%= link_to t('nav.report'), url_for(:report, :page) %></li>
+              </ul>
+          <% end %>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <p class="navbar-text">
+                <%=@user.name%>
+                <a href="<%= url_for(:auth, :log_out)%>" title="<%=t('user.log_out')%>">
+                  <i class="glyphicon glyphicon-log-out"></i>
+                </a>
+              </p>
+            </li>
+          </ul>
+
       <% else %>
-        <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to t('user.log_in'), url_for(:auth, :github) %></li>
-        </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to t('user.log_in.sign_in'), url_for(:auth, :sign_in) %></li>
+          </ul>
       <% end %>
 
       <div class="navbar-form navbar-right">
         <form method="POST" action="/proposal/search" class="form-search">
           <%= csrf_token_field %>
-          <input id="query" type="text" name="query" class="form-control" placeholder="<%=t('nav.search_placeholder')%>" />
-          <input type="submit" value=<%=t('nav.search_button')%> class="btn btn-primary"/>
+          <input id="query" type="text" name="query" class="form-control" placeholder="<%= t('nav.search_placeholder') %>"/>
+          <input type="submit" class="btn btn-primary" value=<%= t('nav.search_button') %> />
         </form>
       </div>
     </div>

@@ -9,14 +9,20 @@
       <tr>
         <th><%= t('proposal.list.table.title')%></th>
         <th><%= t('proposal.list.table.author')%></th>
+        <th><%= t('proposal.list.table.type')%></th>
+        <th><%= t('proposal.list.table.audience')%></th>
         <th><%= t('proposal.list.table.tags')%></th>
+        <th><%= t('proposal.list.table.visits')%></th>
       </tr>
 
       <% @proposals.each do |proposal| %>
         <tr>
           <td><%= link_to proposal.title, url_for(:proposal, :detail, :proposal_id => proposal.id) %></td>
           <td><%= proposal.author %></td>
+          <td><%= proposal.type %></td>
+          <td><%= proposal.audience %></td>
           <td><%= proposal.tag_list * " "%></td>
+          <td><%= proposal.visits%></td>
         </tr>
       <% end %>
 

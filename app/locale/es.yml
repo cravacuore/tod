@@ -1,9 +1,12 @@
 es:
   title: TOD - Organizador de conferencias
   nav:
-    home_link:          Inicio
+    home_link:          Tod
     new_proposal:       Nueva Propuesta
-    proposal_list:      Lista de propuestas
+    proposal_list:      Propuestas
+    report:             Reportes
+    roles:              Roles
+    admin:              Admin
     search_placeholder: Búsqueda
     search_button:      Buscar
   footer:
@@ -12,9 +15,24 @@ es:
   home:
     welcome_message: "Bienvenido a Tod, esperamos esta herramienta te sea de utilidad para organizar las exponencias de tus conferencias. Proveemos de un sistema de fácil manejo teniendo en mente que el público mismo pueda dar feedback de cuáles son los temas que más le llaman la atención y más desean ir a ver en tu conferencia. Diviértete!"
   user:
-    log_in:  Iniciar sesión con GitHub
+    log_in:
+      sign_in:  Iniciar sesión
+      github:   Iniciar sesión con GitHub
+      linkedin: Iniciar sesión con Linkedin
     log_out: Cerrar sesión
     logged:  Conectado como
+  admin:
+    roles:
+      title:      Asignación de Roles
+      user_name:  Usuario
+      is_revisor: Es Revisor
+      empty:      No hay usuarios registrados
+    conference:
+      title:                  Configuración de Conferencia
+      revisions_per_proposal: Revisiones por propuesta
+      save:                   Guardar Cambios
+      success:                Cambios guardados exitosamente
+      fail:                   Acceso Restringido
   proposal:
     new:
       title: Nueva Propuesta
@@ -22,13 +40,22 @@ es:
         title_tag:               Título
         description_tag:         Descripción
         author_tag:              Autor
+        mail_tag:                Email
         tags_tag:                Etiquetas
         title_placeholder:       "Ej: Super Tema 2016"
         description_placeholder: "Ej: Esta es una linda descripción de propuesta"
         author_placeholder:      "Ej: Don Pepito"
         tags_placeholder:        "Ej: Agile, Scrum, Arquitectura de Software"
+        mail_placeholder:        "Ej: Ejemplo@dominio.com"
         send_button:             Enviar
         cancel_button:           Cancelar
+        type:                    Tipo
+        audience:                Audiencia
+        select_1:                "Taller"
+        select_2:                "Presentación"
+        audience_1:              Inicial
+        audience_2:              Practicante
+        audience_3:              Avanzada
       result:
         success:         Propuesta enviada correctamente
         error:           No se ha podido enviar la propuesta
@@ -36,11 +63,15 @@ es:
     list:
       title: Lista de Propuestas
       table:
-        title:  Título
-        author: Autor
-        tags:   Etiquetas
+        title:      Título
+        author:     Autor
+        tags:       Etiquetas
+        type:       Tipo
+        audience:   Audiencia
+        visits:     Visitas
       empty: "Aun no hay propuestas, puedes agregar una si deseas"
     detail:
+      visits:            "Visitas: "
       tags:              "Etiquetas: %{tags}"
       send_by:           "Enviada por: %{author}"
       comment_box_title: "Deja un comentario:"
@@ -48,12 +79,52 @@ es:
         success:         Comentario enviado correctamente
         error:           No se ha podido enviar el comentario
         field_too_short: El campo %{field} tiene menos de %{cant} letras
+      delete:            Eliminar comentario
+      delete_result:
+        success:         Comentario eliminado
+        fail:            No tienes permisos para eliminar comentarios
       form:
         name_tag:            Nombre
         name_placeholder:    "Ej: Don Pepito"
         comment_tag:         Comentario
         comment_placeholder: "Ej: Este es un hermoso comentario, positivo y constructivo"
         send_button:         Enviar
+    evaluation:
+      eval_button: Evaluar
+      eval_msg:    Ya has evaluado esta propuesta
+      view_button: Ver Evaluaciones
+      view_msg:    Aún no has evaluado esta propuesta
+      form:
+        title:               "Evaluar Propuesta: %{title}"
+        opinion_box_tag:     "A continuación, seleccione un dictamen y deje un comentario sobre el dictamen:"
+        opinions:
+          weakly_a:   Aceptación Débil
+          strongly_a: Aceptación Fuerte
+          weakly_r:   Rechazo Débil
+          strongly_r: Rechazo Fuerte
+        comment_tag:         Comentario
+        comment_placeholder: "Ej: La propuesta es interesante"
+        send_button:         Enviar
+        results:
+          success:      "Propuesta evaluada correctamente: %{opinion}"
+          error:        No se ha podido evaluar la propuesta
+          words_enough: "El campo %{field} tiene menos de %{cant} palabras"
+      list:
+        title: "Evaluaciones: %{title}"
     search:
       title: Resultados de búsqueda
       empty: No se han encontrado resultados
+    error:
+      mail_error:    "Email ingresado incorrectamente"
+    email:
+      notify_result: Notificar resultado
+  report:
+     title:                Reportes
+     text:                 Búsqueda  de propuestas por tag
+     tag_placeholder:      "Ej: Tag"
+     button:               Buscar
+     button_quantity:      Cantidad
+     quantity:             "La cantidad de propuestas totales son "
+     quantity_search:      La cantidad de propuestas encontradas por tag "%{tags}" fueron
+     fail:                 Acceso Restringido
+     tag:                  Tag

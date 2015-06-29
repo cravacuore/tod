@@ -9615,7 +9615,7 @@ if ( xhrSupported ) {
 					// Set headers
 					for ( i in headers ) {
 						// Support: IE<9
-						// IE's ActiveXObject throws a 'Type Mismatch' exception when setting
+						// IE's ActiveXObject throws a 'ProposalSessionType Mismatch' exception when setting
 						// request header to a null-value.
 						//
 						// To keep consistent with other XHR implementations, cast the value

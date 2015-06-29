@@ -24,10 +24,12 @@ gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
 gem 'omniauth'
 gem 'omniauth-github', :github => 'intridea/omniauth-github'
+gem 'omniauth-linkedin'
 # gem 'omniauth-twitter'
 
 # Padrino Stable Gem
 gem 'padrino', '0.12.4'
+gem 'rest-client'
 
 # Test requirements
 gem 'rspec', :group => 'test'
@@ -35,8 +37,8 @@ gem 'rack-test', :require => 'rack/test', :group => 'test'
 gem 'guard'
 gem 'guard-rspec'
 gem 'cucumber'
-gem 'travis-yaml'
 gem 'capybara'
+gem 'capybara-webkit'
 
 # Heroku
 gem 'dm-postgres-adapter', :group => :production
