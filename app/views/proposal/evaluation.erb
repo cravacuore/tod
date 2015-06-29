@@ -1,0 +1,49 @@
+<div class="container">
+  <div class = "media">
+      <div class="media-body">
+        <h3 class="evaluation-heading"><%=t('proposal.evaluation.form.title', title: @proposal_detail.title)%></h3>
+      </div>
+
+      <% @user = session[:user] %>
+      <% if @user %>
+        <hr>
+        <div class="media-evaluation">
+          <br>
+          <div class="well">|
+            <h4><%=t('proposal.evaluation.form.opinion_box_tag')%></h4>
+            <% form_for(@evaluation, '/proposal/evaluate', html: { class: 'form' }) do |f| %>
+              <fieldset>
+              <div class="form-group">
+                <%= f.select(:opinion, :options => [
+                  t('proposal.evaluation.form.opinions.weakly_a'),
+                  t('proposal.evaluation.form.opinions.strongly_a'),
+                  t('proposal.evaluation.form.opinions.weakly_r'),
+                  t('proposal.evaluation.form.opinions.strongly_r')
+                  ], :class => 'form-control') %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label t('proposal.evaluation.form.comment_tag'),
+                  class: 'control-label'
+                %>
+                <div class="controls">
+                  <%= f.text_area :body, class: 'form-control',
+                    placeholder: t('proposal.evaluation.form.comment_placeholder'),
+                    rows: '3'
+                  %>
+                </div>
+              </div>
+
+              <%= f.hidden_field :evaluator, value: session[:user].name %>
+              <%= f.hidden_field :proposal_id, value: @proposal_detail.id %>
+
+              <div class="form-actions">
+                <%= f.submit t('proposal.evaluation.form.send_button'),
+                  class: 'btn btn-primary'
+                %>
+              </div>
+            <% end %>
+        </div>
+      <% end # @user%>
+  </div>
+</div>

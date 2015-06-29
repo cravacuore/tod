@@ -1,0 +1,30 @@
+<div class="container">
+  <h1><%= t('admin.roles.title')%></h1>
+
+  <% if @users.empty? then %>
+    <tr><%= t('admin.roles.empty') %></tr>
+  <% else %>
+  <table class="table table-bordered roles-table">
+
+    <tr>
+      <th><%= t('admin.roles.user_name')%></th>
+      <th><%= t('admin.roles.is_revisor')%></th>
+    </tr>
+
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td>
+          <input type="checkbox"
+                 <% if user.role.is_revisor?%>
+                    checked
+                 <%end%>
+          id="revisor_<%= user.uid %>" value="<%= user.uid %>"/>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
+  <% end %>
+
+</div>

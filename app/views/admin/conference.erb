@@ -1,0 +1,28 @@
+<div class="container">
+
+  <h2><%= t('admin.conference.title') %></h2>
+
+  <% if @success_message %>
+      <div class="alert alert-success" role="alert"><%= t('admin.conference.success') %></div>
+  <%end%>
+
+  <% form_for(@conference, '/admin/conference', html: {class: 'form-horizontal col-md-4'}) do |f| %>
+      <div class="form-group">
+        <%= f.label t('admin.conference.revisions_per_proposal'),
+                    for: 'reviewsPerProposal',
+                    class: 'control-label'
+        %>
+        <div class="controls">
+          <%= f.number_field :reviews_per_proposal, class: 'form-control',
+                           id: 'reviewsPerProposal',
+                           autofocus: 'true'
+          %>
+        </div>
+      </div>
+
+      <%= f.submit t('admin.conference.save'),
+                   class: 'btn btn-danger'
+      %>
+  <% end %>
+
+</div>
