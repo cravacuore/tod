@@ -1,0 +1,27 @@
+<div class="container">
+  <div class = "media">
+      <div class="media-body">
+        <h3 class="evaluation-heading"><%=t('proposal.evaluation.list.title', title: @proposal_detail.title)%></h3>
+      </div>
+
+      <% @user = session[:user] %>
+      <% if @user %>
+        <hr>
+        <div class="media-evaluation">
+          <% for @evaluation in @evaluations %>
+          <div class = "media">
+            <div class="media-body">
+              <h3 class="media-heading">
+                <%=@evaluation.opinion%>
+              </h3>
+              <h4 class="media-heading">
+                <%=@evaluation.comment%>
+              </h4>
+                <%=@evaluation.evaluator%>
+              <br>
+            </div>
+          </div>
+          <% end #for %>
+      <% end # @user%>
+  </div>
+</div>

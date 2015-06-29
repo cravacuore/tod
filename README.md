@@ -1,11 +1,18 @@
-#Tod [![Build Status](https://travis-ci.org/cravacuore/tod.svg?branch=master)](https://travis-ci.org/cravacuore/tod)
+#Tod 
 
 Sistema para la organización de propuestas en conferencias.
 
+[![Build Status](https://travis-ci.org/EIS-Tod/tod.svg?branch=develop)](https://travis-ci.org/EIS-Tod/tod)
+[![Stories in Ready](https://badge.waffle.io/EIS-Tod/tod.png?label=ready&title=Ready)](http://waffle.io/EIS-Tod/tod) [![README. This can be changed to represent any column that has a label.Stories in Progress](https://badge.waffle.io/EIS-Tod/tod.png?label=in%20progress&title=InProgress)](http://waffle.io/EIS-Tod/tod)
+
+
 ---
 
-##Documentación y otro recursos
+La documentación del proyecto y otras herramientas se encuentran en la [wiki](https://github.com/EIS-Tod/tod/wiki).
 
-La documentación del proyecto y otras herramientas se encuentran referenciadas en la [wiki](https://github.com/cravacuore/tod/wiki).
 
-Pueden encontrar hosteada la aplicación en Heroku [aquí](http://todconf.herokuapp.com/).
+###Equipo
+
++ Alvarez, Ariel
++ Perini, Javier
++ Rubin, Marcelo

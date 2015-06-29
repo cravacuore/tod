@@ -1,0 +1,58 @@
+<div class="container">
+
+  <% if @user then %>
+      <div class="alert alert-danger " role="alert"><strong><%= t('report.fail') %></strong></div>
+  <% else %>
+      <h1><%= t('report.title')%></h1>
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active" ><a id="tab-report-tag" data-toggle="tab" href="#tag"> <%= t('report.tag')%> </a></li>
+        <li><a id="tab-report-quantity" data-toggle="tab" href="#quantity"> <%= t('report.button_quantity')%> </a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="tag" class="tab-pane fade in active ">
+          <label class="left">
+            <h4><%= t('report.text')%></h4>
+            <form method="POST" action="/report/search" class="form-search">
+              <%= csrf_token_field %>
+              <div class="col-lg-3 input-group">
+                  <input id="consulta-id" type="text" name="consulta" class="form-control" placeholder="<%=t('report.tag_placeholder')%>" />
+                  <span class="input-group-btn">
+                    <input id="button-tag" type="submit" class="btn btn-primary" value= <%= t('report.button')%> />
+                  </span>
+                </div>
+
+            </form>
+          </label>
+          <%if @proposals.present? then %>
+              <h4> <%=t('report.quantity_search', tags:@query )%> <span class="badge"> <%= @quantity_search %></span></h4>
+
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th><%= t('proposal.list.table.title')%></th>
+                  <th><%= t('proposal.list.table.author')%></th>
+                  <th><%= t('proposal.list.table.type')%></th>
+                  <th><%= t('proposal.list.table.tags')%></th>
+                </tr>
+                </thead>
+                <tbody id="results-tag">
+                <% @proposals.each do |proposal| %>
+                    <tr>
+                      <td><%= link_to proposal.title, url_for(:proposal, :detail, :proposal_id => proposal.id) %></td>
+                      <td><%= proposal.author %></td>
+                      <td><%= proposal.type %></td>
+                      <td><%= proposal.tag_list * " "%></td>
+                    </tr>
+                <% end %>
+                </table>
+          <% end %>
+          </tbody>
+        </div>
+
+        <div id="quantity" class="tab-pane fade">
+          </br>
+          <h4> <%=t('report.quantity')%> <span class="badge"> <%= Proposal.count %></span></h4>
+        </div>
+      </div>
+  <% end %>
+</div>

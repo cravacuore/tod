@@ -14,15 +14,14 @@ module Tod
     use OmniAuth::Builder do
       if 'production'.eql? ENV['RACK_ENV']
         #production
-        provider :github,
-          ENV['GITHUB_ID'],
-          ENV['GITHUB_SECRET']
+        provider :github,   ENV['GITHUB_ID'],    ENV['GITHUB_SECRET'], scope: 'user:email'
+        provider :linkedin, ENV['LINKEDIN_KEY'], ENV['LINKEDIN_SECRET']
       else
         #development, test
-        provider :github,
-          'e30e91ed48d24ed4f1a6',
-          'f6416573448abd04dca24aaa19434b4c1b6a561b'
+        provider :github, 'e30e91ed48d24ed4f1a6', 'f6416573448abd04dca24aaa19434b4c1b6a561b', scope: 'user:email'
+        provider :linkedin, '77yig0im17acj8', 'oQeilJS8L71pjN6t'
       end
+
     end
 
     ##

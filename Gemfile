@@ -8,7 +8,7 @@ gem 'rake'
 # Component requirements
 gem 'data_mapper'
 gem 'erubis', '~> 2.7.0'
-gem 'dm-sqlite-adapter', :group => 'test'
+gem 'dm-sqlite-adapter', :group => :test
 gem 'dm-validations'
 gem 'dm-timestamps'
 gem 'dm-migrations'
@@ -24,19 +24,22 @@ gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
 gem 'omniauth'
 gem 'omniauth-github', :github => 'intridea/omniauth-github'
+gem 'omniauth-linkedin'
 # gem 'omniauth-twitter'
 
 # Padrino Stable Gem
 gem 'padrino', '0.12.4'
+gem 'rest-client'
 
 # Test requirements
 gem 'rspec', :group => 'test'
 gem 'rack-test', :require => 'rack/test', :group => 'test'
 gem 'guard'
 gem 'guard-rspec'
-gem 'cucumber'
-gem 'travis-yaml'
-gem 'capybara'
+gem 'cucumber', :group => 'test'
+gem 'capybara', :group => 'test'
+gem 'capybara-webkit', :group => 'test'
 
 # Heroku
 gem 'dm-postgres-adapter', :group => :production
+gem 'unicorn', :group => :production

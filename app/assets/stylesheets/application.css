@@ -5,7 +5,9 @@
  * ...
  *
  *= require_self
- *= require bootstrap
- *= require bootstrap-theme
- *= require social-buttons
+ *= require bootstrap.min
+ *= require font-awesome.min
+ *= require bootstrap-theme.min
+ *= require bootstrap-social
+ *= require toastr
 */
